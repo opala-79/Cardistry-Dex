@@ -1,43 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Meu App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardistry Dex</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Meu Site</h1>
-    
-    <input type="email" id="email-cadastro" placeholder="Email">
-    <input type="password" id="senha-cadastro" placeholder="Senha">
-    <button id="btn-cadastrar">Cadastrar</button>
 
-    <input type="email" id="email-login" placeholder="Email">
-    <input type="password" id="senha-login" placeholder="Senha">
-    <button id="btn-login">Login</button>
+    <header class="header">
+        <a href="index.html" class="header-title">Cardistry Dex</a>
+        <div class="header-actions">
+            <a href="adicionar.html" class="btn">Adicionar Movimento</a>
+        </div>
+    </header>
 
-    <div id="area-logada" style="display:none;">
-        <h2>Meu Perfil</h2>
-        <input type="text" id="novo-movimento" placeholder="Adicionar movimento">
-        <button id="btn-salvar-movimento">Salvar</button>
-        <ul id="lista-movimentos"></ul>
-    </div>
+    <section class="search-container">
+        <input type="search" id="search-bar" class="search-bar" placeholder="Pesquisar por movimento, criador, estilo...">
+    </section>
+
+    <main class="feed-container" id="feed-container">
+        </main>
 
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-check-compat.js"></script>
-    
-    
-    <script>
-      // Configuração do Firebase (do Passo 1)
-      const firebaseConfig = {
-        apiKey: "SUA_API_KEY",
-        authDomain: "SEU_AUTH_DOMAIN",
-        projectId: "SEU_PROJECT_ID",
-        // ...
-      };
-      // Inicializar o Firebase
-      firebase.initializeApp(firebaseConfig);
-    </script>
-    
-    <script src="app.js"></script> </body>
+
+    <script src="app.js"></script>
+
+</body>
 </html>
