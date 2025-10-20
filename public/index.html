@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meu App</title>
+</head>
+<body>
+    <h1>Meu Site</h1>
+    
+    <input type="email" id="email-cadastro" placeholder="Email">
+    <input type="password" id="senha-cadastro" placeholder="Senha">
+    <button id="btn-cadastrar">Cadastrar</button>
+
+    <input type="email" id="email-login" placeholder="Email">
+    <input type="password" id="senha-login" placeholder="Senha">
+    <button id="btn-login">Login</button>
+
+    <div id="area-logada" style="display:none;">
+        <h2>Meu Perfil</h2>
+        <input type="text" id="novo-movimento" placeholder="Adicionar movimento">
+        <button id="btn-salvar-movimento">Salvar</button>
+        <ul id="lista-movimentos"></ul>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script>
+      // Configuração do Firebase (do Passo 1)
+      const firebaseConfig = {
+        apiKey: "SUA_API_KEY",
+        authDomain: "SEU_AUTH_DOMAIN",
+        projectId: "SEU_PROJECT_ID",
+        // ...
+      };
+      // Inicializar o Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    
+    <script src="app.js"></script> </body>
+</html>
