@@ -9,6 +9,23 @@ const btnCadastrar = document.getElementById('btn-cadastrar');
 const btnLogin = document.getElementById('btn-login');
 const btnSalvarMovimento = document.getElementById('btn-salvar-movimento');
 
+// --- INICIALIZAÇÃO DO APP CHECK (com reCAPTCHA v3) ---
+const RECAPTCHA_SITE_KEY = '6LfZMvErAAAAAG1J21iqjlnLM3ZhDs10QmFEKcGa'; // Sua Chave de Site
+
+try {
+  const appCheck = firebase.appCheck();
+  
+  // Ativa o App Check usando o reCAPTCHA v3
+  appCheck.activate(
+    new firebase.appCheck.ReCaptchaV3Provider(RECAPTCHA_SITE_KEY),
+    true // true = auto-refresh do token
+  );
+  console.log("App Check (v3) ativado.");
+
+} catch (err) {
+  console.error("Erro ao ativar o App Check:", err);
+}
+
 // --- AUTENTICAÇÃO ---
 
 // 1. Cadastrar Usuário
