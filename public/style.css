@@ -1,0 +1,239 @@
+/* style.css */
+
+/* --- Variáveis de Cor (Modo Escuro Moderno) --- */
+:root {
+    --bg-color: #121212;         /* Preto suave */
+    --card-color: #1e1e1e;       /* Cinza escuro para cards */
+    --primary-color: #007bff;   /* Azul para botões e links */
+    --text-color: #e0e0e0;       /* Texto claro */
+    --text-color-secondary: #aaaaaa; /* Texto mais suave */
+    --border-color: #333;
+}
+
+/* --- Configurações Globais --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* --- Header (Cabeçalho) --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--card-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+}
+
+.header-actions .btn {
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px; /* Botões arredondados */
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.header-actions .btn:hover {
+    background-color: #0056b3;
+}
+
+/* --- Barra de Pesquisa --- */
+.search-container {
+    padding: 1.5rem;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-color);
+    color: var(--text-color);
+    border-radius: 8px;
+    outline: none;
+}
+
+.search-bar:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+/* --- Feed (Onde os cards aparecem) --- */
+.feed-container {
+    display: grid;
+    /* Isso cria o layout responsivo de cards */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+/* --- Card de Movimento --- */
+.move-card {
+    background-color: var(--card-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden; /* Garante que o vídeo não "vaze" */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporção 16:9 */
+    height: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card-content {
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.card-meta, .card-difficulty {
+    font-size: 0.9rem;
+    color: var(--text-color-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.card-tags {
+    margin-bottom: 1rem;
+}
+
+.card-tags .tag {
+    display: inline-block;
+    background-color: #333;
+    color: var(--text-color);
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin: 3px;
+}
+
+.card-description {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.card-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    background-color: #222;
+}
+
+.report-btn {
+    background: none;
+    border: none;
+    color: var(--text-color-secondary);
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: underline;
+}
+.report-btn:hover {
+    color: var(--primary-color);
+}
+
+/* --- Página de Formulário (adicionar.html) --- */
+.form-page {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: var(--card-color);
+    border-radius: 12px;
+}
+
+.form-page h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    background-color: #333;
+    color: var(--text-color);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-error {
+    color: #ff6b6b;
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: none; /* Oculto por padrão */
+    margin-top: 5px;
+}
+
+.form-actions {
+    text-align: right;
+}
+
+.form-actions .btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.form-actions .btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
