@@ -1,0 +1,33 @@
+# Nome da sua Ação
+name: Deploy to Firebase Hosting
+
+# Configura quando a Ação deve rodar
+on:
+  # Roda sempre que você salvar (commit) no branch 'main'
+  push:
+    branches:
+      - main  # Se o seu branch principal for 'master', mude aqui
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Baixa o código do seu repositório
+      - uses: actions/checkout@v3
+
+      # 2. Executa a Ação de deploy (aquela do seu segundo link)
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          
+          # 3. Usa a "Senha" (FIREBASE_SERVICE_ACCOUNT) que você criou nos "Secrets"
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          
+          channelId: live
+          
+          # 4. ID do seu projeto Firebase
+          projectId: 'cardistry-dex' 
+          
+          # 5. O diretório do seu site (confirme que é 'public')
+          directory: public
+          
