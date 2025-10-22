@@ -1,32 +1,138 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardistry Dex</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cardistry Dex</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">CD</div>
+      <div>
+        <h1>Cardistry Dex</h1>
+        <p class="subtitle">A modern Pokedex for cardistry movements</p>
+      </div>
+    </div>
 
-    <header class="header">
-        <a href="index.html" class="header-title">Cardistry Dex</a>
-        <div class="header-actions">
-            <a href="adicionar.html" class="btn">Adicionar Movimento</a>
-        </div>
-    </header>
+    <div class="top-actions">
+      <div class="search-wrap">
+        <span class="material-icons">search</span>
+        <input id="searchInput" placeholder="Search by name, creator or year..." />
+      </div>
 
-    <section class="search-container">
-        <input type="search" id="search-bar" class="search-bar" placeholder="Pesquisar por movimento, criador, estilo...">
+      <button id="btnAddMovement" class="btn primary">
+        <span class="material-icons">add</span> Add Movement
+      </button>
+
+      <div id="authBlock" class="auth">
+        <button id="btnSignIn" class="btn ghost">Sign in</button>
+        <button id="btnSignOut" class="btn ghost hidden">Sign out</button>
+        <img id="userAvatar" class="avatar hidden" alt="user" />
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="filters">
+      <div class="filter-row">
+        <label>Year</label>
+        <input id="filterYear" type="number" placeholder="e.g. 2018" />
+        <label>Difficulty</label>
+        <select id="filterDifficulty">
+          <option value="">Any</option>
+          <option>Beginner</option>
+          <option>Intermediate</option>
+          <option>Advanced</option>
+        </select>
+
+        <button id="btnClearFilters" class="btn ghost">Clear</button>
+      </div>
     </section>
 
-    <main class="feed-container" id="feed-container">
-        </main>
+    <section id="feed" class="feed">
+      <!-- Movement cards will be injected here -->
+      <div id="emptyState" class="empty">No movements yet — add the first one!</div>
+    </section>
+  </main>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-check-compat.js"></script>
+  <!-- Add Movement Modal -->
+  <div id="modalAdd" class="modal hidden" aria-hidden="true">
+    <div class="modal-panel">
+      <header>
+        <h2>Add Movement</h2>
+        <button id="closeModal" class="btn ghost material-icons">close</button>
+      </header>
 
-    <script src="app.js"></script>
+      <form id="movementForm" class="form">
+        <div class="form-grid">
+          <label>
+            Name
+            <input name="name" required placeholder="Movement name (e.g. Sybil)" />
+          </label>
 
+          <label>
+            Creator
+            <input name="creator" placeholder="Creator name" />
+          </label>
+
+          <label>
+            Year
+            <input name="year" type="number" placeholder="e.g. 2010" />
+          </label>
+
+          <label>
+            Difficulty
+            <select name="difficulty">
+              <option value="">Choose</option>
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+            </select>
+          </label>
+
+          <label class="full">
+            Description
+            <textarea name="description" placeholder="Short description"></textarea>
+          </label>
+
+          <label>
+            Video URL
+            <input name="video" placeholder="YouTube / Vimeo link (optional)" />
+          </label>
+
+          <label>
+            Tags (comma separated)
+            <input name="tags" placeholder="e.g. flourish, fans" />
+          </label>
+
+          <label class="full">
+            Image
+            <input name="image" id="imageInput" type="file" accept="image/*" />
+            <progress id="uploadProgress" value="0" max="100" class="progress hidden"></progress>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="btnCancel" class="btn ghost">Cancel</button>
+          <button type="submit" class="btn primary">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Built with Firebase — Authentication, Firestore and Storage.</p>
+  </footer>
+
+  <script type="module" src="src/app.js"></script>
 </body>
 </html>
