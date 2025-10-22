@@ -110,62 +110,111 @@ function closeModal() {
   UI.uploadProgress.value = 0;
 }
 
+// ====================================================================
+// FUNÇÃO CORRIGIDA ABAIXO
+// ====================================================================
+
 // Helper to create a card element
 function createCard(doc) {
   const data = doc;
   const card = document.createElement('article');
-  card.className = 'card';
+  // Classes do Tailwind para o card
+  card.className = 'bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02]';
 
-  const media = document.createElement('div');
-  media.className = 'media';
+  // Imagem
+  let mediaElement;
   if (data.imageUrl) {
-    const img = document.createElement('img');
-    img.src = data.imageUrl;
-    img.alt = data.name;
-    media.appendChild(img);
+    mediaElement = document.createElement('img');
+    mediaElement.src = data.imageUrl;
+    mediaElement.alt = data.name;
+    // Classes do Tailwind para a imagem
+    mediaElement.className = 'w-full h-48 object-cover';
   } else {
-    media.textContent = 'No image';
+    mediaElement = document.createElement('div');
+    // Classes do Tailwind para o placeholder de imagem
+    mediaElement.className = 'w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500';
+    mediaElement.textContent = 'No image';
   }
 
+  // Div de conteúdo
+  const content = document.createElement('div');
+  // Classes do Tailwind para o padding
+  content.className = 'p-4';
+
+  // Título
   const title = document.createElement('h3');
   title.textContent = data.name || 'Untitled';
+  // Classes do Tailwind para o título
+  title.className = 'text-xl font-bold text-gray-900 mb-1';
 
-  const meta = document.createElement('div');
-  meta.className = 'meta';
-  meta.innerHTML = `
-    <span class="badge">${data.creator || 'Unknown'}</span>
-    <span class="badge">${data.year || '—'}</span>
-    <span class="badge">${data.difficulty || '—'}</span>
-  `;
+  // Criador e Ano
+  const meta = document.createElement('p');
+  meta.textContent = `by ${data.creator || 'Unknown'} ${data.year ? `(${data.year})` : ''}`;
+  // Classes do Tailwind para o meta
+  meta.className = 'text-sm text-gray-600 mb-3';
 
+  // Descrição
   const desc = document.createElement('p');
-  desc.style.color = 'var(--muted)';
-  desc.style.margin = '0';
-  desc.style.fontSize = '13px';
   desc.textContent = data.description || '';
+  // Classes do Tailwind para a descrição
+  desc.className = 'text-sm text-gray-700 mb-4 h-10 line-clamp-2'; // h-10 e line-clamp-2 garantem altura uniforme
 
+  // Container de Tags
+  const tagContainer = document.createElement('div');
+  tagContainer.className = 'flex flex-wrap gap-2 mb-4';
+  
+  // Badge de Dificuldade
+  if (data.difficulty) {
+    const diffBadge = document.createElement('span');
+    diffBadge.className = 'bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full';
+    diffBadge.textContent = data.difficulty;
+    tagContainer.appendChild(diffBadge);
+  }
+  // Outras Tags
+  if (data.tags && data.tags.length > 0) {
+    data.tags.forEach(tag => {
+      const tagBadge = document.createElement('span');
+      tagBadge.className = 'bg-gray-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded-full';
+      tagBadge.textContent = tag;
+      tagContainer.appendChild(tagBadge);
+    });
+  }
+
+  // Ações (Botão de Vídeo)
   const actions = document.createElement('div');
-  actions.style.display = 'flex';
-  actions.style.gap = '8px';
-  actions.style.marginTop = '10px';
+  // Classes do Tailwind para o container de ações
+  actions.className = 'flex gap-2 border-t border-gray-100 pt-3';
   if (data.video) {
     const a = document.createElement('a');
     a.href = data.video;
     a.target = '_blank';
-    a.className = 'btn ghost';
-    a.textContent = 'Watch';
+    // Classes do Tailwind para o botão (antigo "btn ghost")
+    a.className = 'bg-transparent text-blue-600 font-semibold py-2 px-3 rounded-lg hover:bg-gray-100 transition-colors text-sm';
+    a.textContent = 'Watch Video';
     actions.appendChild(a);
   }
 
-  card.append(media, title, meta, desc, actions);
+  // Monta o card
+  content.append(title, meta, desc, tagContainer, actions);
+  card.append(mediaElement, content);
   return card;
 }
+
+// ====================================================================
+// FIM DA FUNÇÃO CORRIGIDA
+// ====================================================================
+
 
 // Render feed with client-side filtering
 function renderFeed() {
   const q = UI.searchInput.value.trim().toLowerCase();
   const yearFilter = UI.filterYear.value.trim();
   const diffFilter = UI.filterDifficulty.value;
+
+  // Remove o estado de vazio antes de filtrar
+  if (UI.emptyState.parentNode === UI.feed) {
+    UI.feed.removeChild(UI.emptyState);
+  }
 
   const filtered = movements.filter(m => {
     if (yearFilter && String(m.year) !== String(yearFilter)) return false;
@@ -177,7 +226,7 @@ function renderFeed() {
 
   UI.feed.innerHTML = '';
   if (filtered.length === 0) {
-    UI.feed.appendChild(UI.emptyState);
+    UI.feed.appendChild(UI.emptyState); // O emptyState já está estilizado no HTML
     return;
   }
 
